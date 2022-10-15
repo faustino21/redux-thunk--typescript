@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useSelector } from 'react-redux';
+import { RootStore } from './store';
+import { useDispatch } from 'react-redux';
+import { GetPokemon } from './action/pokemonAction';
 
 function App() {
+
+  const dispatch = useDispatch()
+  const [pokemonName, setPokemonName] = useState("")
+  const PokemonState = useSelector( (state : RootStore) => state.pokemon)
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPokemonName(e.target.value)
+  } 
+
+  const handleSubmit = () => dispatch(GetPokemon)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type="text" onChange={handleChange}/>
+      <button onClick={}>Submit</button>
     </div>
   );
 }
